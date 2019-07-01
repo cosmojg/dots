@@ -4,6 +4,9 @@
 chsh -s /usr/bin/fish
 fish_update_completions
 
+## pkgfile configuration
+pkgfile -u
+
 # git configuration
 git config --global user.name cosmo
 git config --global user.email cosmo@cosmo.red
