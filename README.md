@@ -6,24 +6,33 @@
 ## dependencies
 #### compositor
 * [sway](https://wiki.archlinux.org/index.php/Sway)
+    * [grim](https://github.com/emersion/grim)*
     * [light](https://wiki.archlinux.org/index.php?title=Light)
-    * [mako](https://github.com/emersion/mako)
+    * [mako](https://github.com/emersion/mako)*
     * [redshift-wlr-gamma-control-git](https://wiki.archlinux.org/index.php/Redshift)
+    * [slurp](https://github.com/emersion/slurp)*
     * [swayidle](https://github.com/swaywm/swayidle)
     * [swaylock](https://github.com/swaywm/swaylock)
+    * [waybar](https://github.com/Alexays/Waybar)*
+        * [otf-font-awesome](https://github.com/FortAwesome/Font-Awesome)
+    * [xorg-server-xwayland](https://wiki.archlinux.org/index.php/Wayland#XWayland)
 
 #### editor
 * [neovim](https://wiki.archlinux.org/index.php/Neovim)
 
 #### launcher
-* [bemenu](https://github.com/Cloudef/bemenu)
+* [bemenu](https://github.com/Cloudef/bemenu)*
 
 #### shell
 * [fish](https://wiki.archlinux.org/index.php/Fish)
+    * [pkgfile](https://wiki.archlinux.org/index.php/Pkgfile)
+    * [python](https://wiki.archlinux.org/index.php/Python)
 
 #### terminal
 * [alacritty](https://wiki.archlinux.org/index.php/Alacritty)
     * [wl-clipboard-x11](https://github.com/brunelli/wl-clipboard-x11)
+
+\* work in progress
 
 ---
 
