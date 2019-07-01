@@ -2,7 +2,7 @@
 
 # fish configuration
 chsh -s /usr/bin/fish
-fish_config
+fish_update_completions
 
 # git configuration
 git config --global user.name cosmo
