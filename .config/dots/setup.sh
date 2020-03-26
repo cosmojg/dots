@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # fish configuration
 chsh -s /usr/bin/fish
@@ -6,6 +6,7 @@ fish_update_completions
 
 ## pkgfile configuration
 pkgfile -u
+systemctl enable --now pkgfile-update.timer
 
 # git configuration
 git config --global user.name cosmo
