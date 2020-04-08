@@ -87,8 +87,6 @@ scrolling:
   # scrollback is enabled (history > 0).
   multiplier: 3
 
-tabspaces: 8
-
 # Font configuration
 font:
   # Normal (roman) font face

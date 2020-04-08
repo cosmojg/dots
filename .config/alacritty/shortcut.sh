@@ -1,2 +1,2 @@
 #!/bin/sh
-WINIT_HIDPI_FACTOR=1 alacritty & exit
+WINIT_X11_SCALE_FACTOR=1 alacritty & exit
