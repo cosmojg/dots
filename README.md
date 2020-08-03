@@ -1,5 +1,5 @@
 ## dots
-#### dotfiles
+dotfiles
 
 ---
 
@@ -56,3 +56,9 @@ see: https://www.atlassian.com/git/tutorials/dotfiles
 * configure mako
 * configure waybar
 * write a setup script
+
+---
+
+## license
+
+[GNU General Public License 3.0](LICENSE)
