@@ -19,7 +19,7 @@ if status is-interactive
     --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-    alias fzf='SHELL=/usr/bin/fish fzf' # Without this, fzf quits and throws "Failed to read /dev/tty"
+    alias fzf='env SHELL=/usr/bin/fish fzf' # Without this, fzf quits and throws "Failed to read /dev/tty"
 
     # Initialize zoxide
     zoxide init fish | source
