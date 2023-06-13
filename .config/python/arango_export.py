@@ -20,12 +20,6 @@ def main(argv: list[str] | None = None) -> int:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
-        "--server",
-        type=str,
-        default="http://127.0.0.1:8529",
-        help="ArangoDB server URL and port number",
-    )
-    parser.add_argument(
         "--username",
         type=str,
         help="ArangoDB username",
@@ -34,6 +28,12 @@ def main(argv: list[str] | None = None) -> int:
         "--password",
         type=str,
         help="ArangoDB password",
+    )
+    parser.add_argument(
+        "--server",
+        type=str,
+        default="http://127.0.0.1:8529",
+        help="ArangoDB server URL and port number",
     )
     parser.add_argument(
         "--database",
@@ -46,12 +46,6 @@ def main(argv: list[str] | None = None) -> int:
         type=str,
         default="unnamed_collection",
         help="name of collection",
-    )
-    parser.add_argument(
-        "--documents",
-        nargs="*",
-        default="all",
-        help="name(s) of data document(s) (UNIMPLEMENTED!)",
     )
     parser.add_argument(
         "--objects",
