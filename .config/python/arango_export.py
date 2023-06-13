@@ -1,70 +1,43 @@
 #!/usr/bin/env python3
 """Export documents from ArangoDB collections as JSON and CSV."""
-import argparse
+from typing import Annotated
 
 import polars as pl
+import typer
 from pyArango.connection import Connection as Conn
 from pyArango.query import SimpleQuery
+from rich import print
+from rich.progress import track
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(
+    server: Annotated[
+        str,
+        typer.Option(help="ArangoDB server URL and port number"),
+    ] = "http://127.0.0.1:8529",
+    username: Annotated[str, typer.Option(help="ArangoDB username")] = "user",
+    password: Annotated[str, typer.Option(help="ArangoDB password")] = "pass",
+    database: Annotated[
+        str,
+        typer.Option(help="name of database"),
+    ] = "unnamed_database",
+    collection: Annotated[
+        str,
+        typer.Option(help="name of collection"),
+    ] = "unnamed_collection",
+    data: Annotated[
+        list[str],
+        typer.Option(help="name(s) of data object(s)"),
+    ] = ["data", "data_truth"],
+) -> int:
     """Export documents from ArangoDB collections as JSON and CSV."""
-    parser = argparse.ArgumentParser(
-        description="Export documents from ArangoDB collections as JSON and CSV.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser.add_argument(
-        "--server",
-        type=str,
-        default="http://127.0.0.1:8529",
-        help="ArangoDB server URL and port number",
-    )
-    parser.add_argument(
-        "--username",
-        default="user",
-        type=str,
-        help="ArangoDB username",
-    )
-    parser.add_argument(
-        "--password",
-        default="pass",
-        type=str,
-        help="ArangoDB password",
-    )
-    parser.add_argument(
-        "--database",
-        type=str,
-        default="unnamed_database",
-        help="name of database",
-    )
-    parser.add_argument(
-        "--collection",
-        type=str,
-        default="unnamed_collection",
-        help="name of collection",
-    )
-    parser.add_argument(
-        "--objects",
-        nargs="*",
-        default=["data", "data_truth"],
-        help="name(s) of data object(s)",
-    )
-
-    args = parser.parse_args(argv)
-
     # Get the ArangoDB collection
-    coll = get_collection(
-        args.server,
-        args.username,
-        args.password,
-        args.database,
-        args.collection,
-    )
+    coll = get_collection(server, username, password, database, collection)
 
-    # Export objects from all documents in collection
-    for doc in coll:
-        for object_name in args.objects:
-            df_name = "_".join((object_name, doc["name"], args.collection))
+    # Export data objects from all documents in collection
+    for doc in track(coll):
+        for object_name in data:
+            df_name = "_".join((object_name, doc["name"], collection))
             object_df = pl.DataFrame(doc[object_name])
             object_df.write_json(f"{df_name}.json")
             object_df.write_csv(f"{df_name}.csv")
@@ -103,4 +76,4 @@ def get_collection(
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    typer.run(main)
