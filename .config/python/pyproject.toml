@@ -1,0 +1,79 @@
+[tool.black]
+target-version = ["py311"]
+preview = true
+
+[tool.ruff]
+target-version = "py311"
+fix = true
+select = ["ALL"]
+unfixable = ["ERA"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[project]
+name = "arango_export"
+version = "2023.6"
+description = "Export documents from ArangoDB collections as JSON and CSV."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {file = "LICENSE.md"}
+keywords = ["arango", "export", "database", "json", "csv"]
+authors = [
+  {name = "Cosmo Guerini", email = "cosmo@cosmo.red"}
+]
+maintainers = [
+  {name = "Cosmo Guerini", email = "cosmo@cosmo.red"}
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX",
+  "Operating System :: POSIX :: BSD",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: POSIX :: Other",
+  "Operating System :: Unix",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Database",
+  "Topic :: Utilities",
+  "Typing :: Typed",
+]
+
+dependencies = [
+  "polars",
+  "pyArango",
+]
+
+# dynamic = ["version", "description"]
+
+# [project.optional-dependencies]
+# gui = ["PyQt5"]
+# cli = [
+#   "rich",
+#   "typer",
+# ]
+
+[project.urls]
+Homepage = "https://cosmo.red"
+Documentation = "https://github.com/cosmojg"
+Repository = "https://github.com/cosmojg/dots.git"
+Changelog = "https://github.com/cosmojg/dots/blob/main/README.md"
+
+# [project.scripts]
+# arango_export-cli = "arango_export:main_cli"
+#
+# [project.gui-scripts]
+# arango_export-gui = "arango_export:main_gui"
+#
+# [project.entry-points."arango_export.magical"]
+# tomatoes = "arango_export:main_tomatoes"
