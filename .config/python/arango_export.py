@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Export documents from ArangoDB collections as JSON and CSV."""
 import argparse
-import json
+
 import polars as pl
 from pyArango.connection import Connection as Conn
 from pyArango.query import SimpleQuery
+
 
 def main(argv: list[str] | None = None) -> int:
     """Export documents from ArangoDB collections as JSON and CSV."""
