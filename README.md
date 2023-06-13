@@ -58,11 +58,7 @@ see: https://www.atlassian.com/git/tutorials/dotfiles
 * write a setup script
 * add git config
   * ensure `git config --global rerere.enabled true`
-* add templates
-  * pre-commit
-  * python
-  * black
-  * ruff
+  * default to `main` instead of `master`
 
 ---
 
