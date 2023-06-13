@@ -19,16 +19,31 @@ if status is-interactive
     --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-    alias fzf='env SHELL=/usr/bin/fish fzf' # Without this, fzf quits and throws "Failed to read /dev/tty"
 
-    # Initialize zoxide
+  # Set bat theme
+    set -gx BAT_THEME "Catppuccin-mocha"
+
+  # Set other environment variables
+    set -gx EDITOR "nvim"
+    set -gx TERM "alacritty"
+
+  # Initialize zoxide
     zoxide init fish | source
 
-    # Set aliases for common commands
-    alias cd='z'
+  # Initialize fish theme
+    source ~/.config/fish/conf.d/mocha.fish
+
+  # Set aliases for common commands
     alias ls='exa'
+    alias cd='z'
     alias cat='bat'
-    alias less='bat --paging always'
     alias grep='rg'
     alias find='fd'
 end
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+set -gx MAMBA_EXE "/usr/local/bin/micromamba"
+set -gx MAMBA_ROOT_PREFIX "$HOME/micromamba"
+$MAMBA_EXE shell hook --shell fish --prefix $MAMBA_ROOT_PREFIX | source
+# <<< mamba initialize <<<

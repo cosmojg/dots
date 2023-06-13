@@ -56,6 +56,7 @@ see: https://www.atlassian.com/git/tutorials/dotfiles
 * configure mako
 * configure waybar
 * write a setup script
+  * move one-time fish setup out of config.fish
 * add git config
   * ensure `git config --global rerere.enabled true`
   * default to `main` instead of `master`
