@@ -1,0 +1,4 @@
+#!/bin/sh
+filename="${*:-}"
+shellcheck --enable=all --format=diff "${filename}" | patch -p1
+shfmt --simplify --write "${filename}"

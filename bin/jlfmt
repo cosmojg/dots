@@ -1,0 +1,3 @@
+#!/usr/bin/env julia
+using JuliaFormatter
+format(".", style=BlueStyle(), verbose=true)
