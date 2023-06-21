@@ -358,7 +358,10 @@ set -g mode-keys vi
 # bind v new-window -c #{pane_current_path} #!important
 
 # move status line to top
-#set -g status-position top
+set -g status-position top
+
+# send OSC 52 with "c;" so copy mode works in mosh
+set-option -ag terminal-overrides ",xterm-256color:Ms=\\E]52;c;%p2%s\\7"
 
 
 # -- tpm -----------------------------------------------------------------------
@@ -403,6 +406,7 @@ tmux_conf_uninstall_plugins_on_reload=true
 #set -g @continuum-restore 'on'
 set -g @plugin 'catppuccin/tmux'
 set -g @catppuccin_flavour 'mocha'
+
 
 # -- custom variables ----------------------------------------------------------
 
