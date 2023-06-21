@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
 # prepend private bin directories to PATH or promote if already present
-function _path_prepend {
+function __path_prepend {
   if [[ -d $1 ]]
   then
-    PATH=:$PATH
+    PATH=:${PATH}
     PATH=$1${PATH//:$1:/:}
   fi
 }
-_path_prepend "$HOME"/.local/share/junest/bin
-_path_prepend "$HOME"/.local/bin
-_path_prepend "$HOME"/bin
+__path_prepend "${HOME}"/.local/share/junest/bin
+__path_prepend "${HOME}"/.local/bin
+__path_prepend "${HOME}"/bin
 
 # append private bin directories to PATH or demote if already present
-function _path_append {
+function __path_append {
   if [[ -d $1 ]]
   then
-    PATH=$PATH:
+    PATH=${PATH}:
     PATH=${PATH//:$1:/:}$1
   fi
 }
-_path_append "$HOME"/.junest/usr/bin_wrappers
+__path_append "${HOME}"/.junest/usr/bin_wrappers
 
 # set locale and timezone
 export LANG="en_US.UTF-8"
@@ -31,19 +31,13 @@ export COLORTERM="truecolor"
 
 # set default editor with EDITOR and VISUAL
 export EDITOR=nvim
-export VISUAL=$EDITOR
+export VISUAL=${EDITOR}
 
 # set defaults for Julia and MATLAB
-export JULIA_EDITOR=$EDITOR
+export JULIA_EDITOR=${EDITOR}
 export JULIA_NUM_THREADS=auto
 export JULIA_SHELL=bash
 export MATLAB_SHELL=bash
-
-# set JuNest environment variables according to host
-if [[ "$HOSTNAME" == "barad-dur" ]]
-then
-  export JUNEST_ARGS="-b '--bind /storage /storage'"
-fi
 
 # exit script if not running interactively
 case $- in
@@ -57,9 +51,11 @@ then
     tmux attach || tmux >/dev/null 2>&1
 fi
 
-# run fish if not already running
-if [[ -z "${FISH}" ]]
+# run fish if installed and not already running
+__fish_path=$(type -p fish)
+if [[ -n "${__fish_path}" && -z "${__fish_setup}" ]]
 then
+    export SHELL=${__fish_path}
     exec fish
 fi
 
