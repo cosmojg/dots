@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 # prepend private bin directories to PATH or promote if already present
 function __path_prepend {
-  if [[ -d $1 ]]
-  then
-    PATH=:${PATH}
-    PATH=$1${PATH//:$1:/:}
-  fi
+	if [[ -d $1 ]]; then
+		PATH=:${PATH}
+		PATH=$1${PATH//:$1:/:}
+	fi
 }
 __path_prepend "${HOME}"/.local/share/junest/bin
 __path_prepend "${HOME}"/.local/bin
@@ -13,11 +12,10 @@ __path_prepend "${HOME}"/bin
 
 # append private bin directories to PATH or demote if already present
 function __path_append {
-  if [[ -d $1 ]]
-  then
-    PATH=${PATH}:
-    PATH=${PATH//:$1:/:}$1
-  fi
+	if [[ -d $1 ]]; then
+		PATH=${PATH}:
+		PATH=${PATH//:$1:/:}$1
+	fi
 }
 __path_append "${HOME}"/.junest/usr/bin_wrappers
 
@@ -40,23 +38,18 @@ export JULIA_SHELL=bash
 export MATLAB_SHELL=bash
 
 # exit script if not running interactively
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+[[ $- != *i* ]] && return
 
-# run tmux if not already running and connected over SSH
-if [[ -z "${TMUX}" && -n "${SSH_TTY}" ]]
-then
-    tmux attach || tmux >/dev/null 2>&1
+# run tmux if remote and not already running
+if [[ -n ${SSH_TTY} && -z ${TMUX} ]]; then
+	tmux attach || tmux >/dev/null 2>&1
 fi
 
 # run fish if installed and not already running
 __fish_path=$(type -p fish)
-if [[ -n "${__fish_path}" && -z "${__fish_setup}" ]]
-then
-    export SHELL=${__fish_path}
-    exec fish
+if [[ -n ${__fish_path} && -z ${__fish_setup} ]]; then
+	export SHELL=${__fish_path}
+	exec fish
 fi
 
 # record infinite history
@@ -68,3 +61,10 @@ HISTCONTROL=ignoreboth
 
 # append history rather than overwriting
 shopt -s histappend
+
+# resize output if display exists
+[[ -n ${DISPLAY} ]] && shopt -s checkwinsize
+
+# print a pretty prompt
+PS1="\[\e[32;1m\][\A]\[\e[m\] \[\e[36m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[33m\] \w \[\e[31m\][\$?]\[\e[m\] \$ "
+PROMPT_COMMAND=''
