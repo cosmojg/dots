@@ -58,6 +58,10 @@ if status is-interactive
   # Configure man to use bat
   set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
+  # Set default and delta pagers to use less with color passthrough
+  set -Ux PAGER "less -R"
+  set -Ux DELTA_PAGER "$PAGER"
+
   # Set ripgrep configuration path
   set -Ux RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/config"
 
