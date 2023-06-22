@@ -1,0 +1,32 @@
+[color]
+  ui = true
+
+[core]
+  editor = nvim
+  pager = delta
+
+[delta]
+  light = false
+  line-numbers = true
+  navigate = true
+
+[diff]
+  colorMoved = default
+
+[init]
+  defaultBranch = main
+
+[interactive]
+  diffFilter = delta --color-only
+
+[merge]
+  conflictstyle = zdiff3
+
+[pull]
+  ff = only
+
+[push]
+  default = simple
+
+[rerere]
+  enabled = true
