@@ -59,6 +59,10 @@ if status is-interactive
   set -Ux MAMBA_EXE (type -p micromamba)
   set -Ux MAMBA_ROOT_PREFIX "$HOME/micromamba"
 
+  # Configure bat to use Catppuccin
+  git clone "https://github.com/catppuccin/bat.git" "$HOME/.config/bat/themes" --depth 1
+  set -Ux BAT_THEME "Catppuccin-mocha"
+
   # Configure man to use bat
   set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
