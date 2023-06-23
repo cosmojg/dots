@@ -5,6 +5,8 @@ if status is-interactive
   if type -q pacman
     sudo pacman -Syu alacritty awesome-terminal-fonts base-devel bat btop duf dust exa fish fisher fd ffmpeg fzf git git-delta man-db man-pages moreutils mosh neovim openssh openssl	otf-firamono-nerd	otf-fira-sans pandoc progress python python-black python-pip python-pre-commit ripgrep rsync ruff shellcheck shfmt syncthing tealdeer tmux	ttf-firacode-nerd	ttf-ibmplex-mono-nerd	ttf-sourcecodepro-nerd vivid xz yamllint zoxide
 
+    fisher install fisher
+
     # Install AUR dependencies with yay
     if type -q yay
       yay -Syu mdformat micromamba-bin
@@ -23,6 +25,8 @@ if status is-interactive
     brew update
     brew upgrade
     brew install alacritty bash bat black btop coreutils duf dust exa fish fisher fd ffmpeg fzf font-awesome-terminal-fonts font-blex-mono-nerd-font font-charter font-cooper-hewitt font-fira-code-nerd-font font-fira-mono-nerd-font font-fira-sans font-sauce-code-pro-nerd-font git git-delta gnu-sed gnu-tar ipython jq less man-db mdformat micromamba moreutils mosh neovim openssh openssl pandoc progress pre-commit python ripgrep rsync ruff shellcheck shfmt syncthing tealdeer tmux vivid xz yamllint zoxide zsh
+
+    fisher install fisher
 
   # Print an error message
   else

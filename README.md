@@ -57,6 +57,7 @@ see: https://www.atlassian.com/git/tutorials/dotfiles
 * configure waybar
 * write a setup script
   * move one-time fish setup out of config.fish
+* configure automatic updates for pacman, brew, and fisher
 
 ---
 
