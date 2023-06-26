@@ -58,7 +58,18 @@ see: https://www.atlassian.com/git/tutorials/dotfiles
 * write a setup script
   * move one-time fish setup out of config.fish
 * configure automatic updates for pacman, brew, and fisher
-* configure systemd services and timers (e.g., pkgfile)
+* configure systemd services and timers (e.g., pkgfile) [1](https://wiki.archlinux.org/title/Systemd/User#Automatic_start-up_of_systemd_user_instances) [2](https://wiki.archlinux.org/title/systemd/Timers) [3](https://github.com/fsquillace/junest/wiki/How-to-run-services-using-Systemd)
+* set up dark mode on linux and macos [(example)](https://github.com/sharkdp/bat#dark-mode)
+* add macos config scripts [(example)](https://github.com/mathiasbynens/dotfiles/blob/main/.macos)
+* [fully configure delta](https://dandavison.github.io/delta/configuration.html)
+* fully configure fzf [1](https://github.com/junegunn/fzf#tips) [2](https://github.com/junegunn/fzf/blob/master/ADVANCED.md) [3](https://wiki.archlinux.org/title/fzf)
+* [fully configure fd](https://github.com/sharkdp/fd#using-fd-with-fzf)
+* [update tmux.conf.local to reflect latest version](https://github.com/gpakosz/.tmux/blob/master/.tmux.conf.local)
+* clean up nvchad config [1](https://nvchad.com/docs/config/walkthrough) [2](https://github.com/siduck/dotfiles/blob/master/nvchad/custom/configs/overrides.lua)
+* [include tide setup and config](https://github.com/IlanCosman/tide)
+* consider additional fish plugins:
+  * https://github.com/gazorby/fifc
+  * https://github.com/PatrickF1/fzf.fish
 
 ---
 
