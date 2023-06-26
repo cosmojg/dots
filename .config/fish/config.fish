@@ -75,7 +75,7 @@ if status is-interactive
   set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
   # Set default pagers to use less with color passthrough
-  set -Ux PAGER "less -RF"
+  set -Ux PAGER "less -RF --mouse"
   set -Ux BAT_PAGER "$PAGER"
   set -Ux DELTA_PAGER "$PAGER"
 
