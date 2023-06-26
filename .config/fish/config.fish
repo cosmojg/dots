@@ -82,6 +82,10 @@ if status is-interactive
   # Set ripgrep configuration path
   set -Ux RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/config"
 
+  # Configure btop to use Catppuccin
+  git clone "https://github.com/catppuccin/btop.git" "$HOME/.config/btop/catppuccin" --depth 1
+  ln -s "$HOME/.config/btop/catppuccin/themes" "$HOME/.config/btop/themes"
+
   # Set aliases for common commands
   alias -s ls="exa"
   alias -s cat="bat"
