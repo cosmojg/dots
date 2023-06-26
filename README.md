@@ -58,6 +58,7 @@ see: https://www.atlassian.com/git/tutorials/dotfiles
 * write a setup script
   * move one-time fish setup out of config.fish
 * configure automatic updates for pacman, brew, and fisher
+* configure systemd services and timers (e.g., pkgfile)
 
 ---
 
