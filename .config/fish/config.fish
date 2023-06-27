@@ -96,6 +96,9 @@ if status is-interactive
   fisher install catppuccin/fish
   fish_config theme save "Catppuccin Mocha"
 
+  # Configure fish to use tide
+  fisher install IlanCosman/tide
+
   # Update completions
   fish_update_completions
 
