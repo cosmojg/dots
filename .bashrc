@@ -43,6 +43,7 @@ export MATLAB_SHELL=bash
 # run tmux if remote and not already running
 if [[ -n ${SSH_TTY} && -z ${TMUX} ]]; then
 	tmux attach || tmux >/dev/null 2>&1
+	exit
 fi
 
 # run fish if installed and not already running
