@@ -16,7 +16,8 @@ if status is-interactive
 
     # Install AUR dependencies with yay
     if type -q yay
-      yay -Syu mdformat micromamba-bin
+      yay -Syu paru-bin
+      paru -Syu mdformat micromamba-bin
 
     # Install AUR dependencies with paru
     else if type -q paru
