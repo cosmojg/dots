@@ -3,7 +3,7 @@ if status is-interactive
   and not set -q __fish_setup
   # Install dependencies with pacman
   if type -q pacman
-    sudo pacman -Syu alacritty awesome-terminal-fonts base-devel bat btop duf dust exa fish fisher fd ffmpeg fzf git git-delta man-db man-pages moreutils mosh neovim openssh openssl	otf-firamono-nerd	otf-fira-sans pandoc pkgfile progress python python-black python-pip python-pre-commit ripgrep rsync ruff shellcheck shfmt syncthing tealdeer tmux	ttf-firacode-nerd	ttf-ibmplex-mono-nerd	ttf-sourcecodepro-nerd vivid xz yamllint zoxide
+    sudo pacman -Syu alacritty awesome-terminal-fonts base-devel bat btop duf dust exa fish fisher fd ffmpeg fzf git git-delta man-db man-pages moreutils mosh neovim openssh openssl otf-firamono-nerd otf-fira-sans pandoc pkgfile progress python python-black python-pip python-pre-commit ripgrep rsync ruff shellcheck shfmt syncthing tealdeer tmux ttf-firacode-nerd ttf-ibmplex-mono-nerd ttf-sourcecodepro-nerd vivid xz yamllint zoxide
 
     # Let fisher manage itself
     fisher install fisher
