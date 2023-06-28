@@ -40,9 +40,9 @@ export MATLAB_SHELL=bash
 # exit script if not running interactively
 [[ $- != *i* ]] && return
 
-# run tmux if remote and not already running
-if [[ -n ${SSH_TTY} && -z ${TMUX} ]]; then
-	tmux attach || tmux >/dev/null 2>&1
+# run zellij if remote and not already running
+if [[ -n ${SSH_TTY} && -z ${ZELLIJ} ]]; then
+	zellij attach -c
 	exit
 fi
 
