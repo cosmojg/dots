@@ -64,7 +64,7 @@ see: https://www.atlassian.com/git/tutorials/dotfiles
 * [fully configure delta](https://dandavison.github.io/delta/configuration.html)
 * fully configure fzf [1](https://github.com/junegunn/fzf#tips) [2](https://github.com/junegunn/fzf/blob/master/ADVANCED.md) [3](https://wiki.archlinux.org/title/fzf)
 * [fully configure fd](https://github.com/sharkdp/fd#using-fd-with-fzf)
-* [update tmux.conf.local to reflect latest version](https://github.com/gpakosz/.tmux/blob/master/.tmux.conf.local)
+* [investigate wezterm as possible replacement for alacritty+zellij](https://github.com/wez/wezterm)
 * clean up nvchad config [1](https://nvchad.com/docs/config/walkthrough) [2](https://github.com/siduck/dotfiles/blob/master/nvchad/custom/configs/overrides.lua)
 * [include tide setup and config](https://github.com/IlanCosman/tide)
 * consider additional fish plugins:
