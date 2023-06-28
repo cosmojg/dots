@@ -42,8 +42,7 @@ export MATLAB_SHELL=bash
 
 # run zellij if remote and not already running
 if [[ -n ${SSH_TTY} && -z ${ZELLIJ} ]]; then
-	zellij attach -c
-	exit
+	zellij attach -c && exit
 fi
 
 # run fish if installed and not already running
