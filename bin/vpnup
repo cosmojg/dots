@@ -1,0 +1,81 @@
+#!/bin/sh
+
+action=$1
+address=$2
+
+cleanup() {
+	if [ -f /tmp/vpnup.pid ]; then
+		vpnup_pid=$(cat /tmp/vpnup.pid)
+		printf "Stopping (PID: %s)\n" "${vpnup_pid}"
+		rm /tmp/vpnup.pid
+		kill -TERM "${vpnup_pid}"
+	else
+		printf "Script is not running\n"
+	fi
+}
+
+stop() {
+	cleanup
+  networksetup -disconnectpppoeservice "BFC VPN"
+	exit
+}
+
+trap stop INT TERM
+
+case ${action} in
+start)
+	# If the script is already running, first clean up
+	cleanup
+
+	# Check if IP adress was provided
+	if [ -z "${address}" ]; then
+		printf "ERROR: Missing IP address.\nUSAGE: vpnup start [IP address]\n" 1>&2
+		rm /tmp/vpnup.pid
+		exit 1 1>&2
+	fi
+
+	{
+		while true; do
+	    printf "%s" $! >/tmp/vpnup.pid
+			ping -c 1 -t 1 "${address}" >/dev/null
+			error=$?
+			if [ "${error}" -eq 0 ]; then
+				printf "Successfully connected to %s (PID: %s)\n" "${address}" $! >/dev/null
+			elif [ "${error}" -eq 2 ]; then
+				printf "Failed to connect to %s (PID: %s)\n" "${address}" $! >/dev/null
+				networksetup -connectpppoeservice "BFC VPN"
+			else
+				printf "ERROR: %s\n" "${error}"
+				rm /tmp/vpnup.pid
+				printf "Exiting (PID: %s)\n" $!
+				exit $error
+			fi
+			sleep 1
+		done
+	} &
+	printf "Starting (PID: %s)\n" $!
+	;;
+
+stop)
+	stop
+	;;
+
+status)
+	networksetup -showpppoestatus "BFC VPN"
+	if [ -f /tmp/vpnup.pid ]; then
+		vpnup_pid=$(cat /tmp/vpnup.pid)
+		printf "Script is running (PID: %s)\n" "${vpnup_pid}"
+	else
+		printf "Script is not running\n"
+	fi
+	;;
+
+*)
+	printf "ERROR: Invalid action or missing arguments.\n" 1>&2
+	printf "USAGE:\n" 1>&2
+	printf "  vpnup start [IP address] - to start or restart the script.\n" 1>&2
+	printf "  vpnup stop               - to stop the script if it's running.\n" 1>&2
+	printf "  vpnup status             - to check the status of the script.\n" 1>&2
+	exit 1 1>&2
+	;;
+esac
