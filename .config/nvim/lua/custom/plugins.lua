@@ -87,6 +87,9 @@ local plugins = {
   --   "mg979/vim-visual-multi",
   --   lazy = false,
   -- }
+
+  -- To use a extras plugin
+  -- { import = "custom.configs.extras.symbols-outline", },
 }
 
 return plugins
