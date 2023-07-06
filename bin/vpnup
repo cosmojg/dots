@@ -16,7 +16,7 @@ cleanup() {
 
 stop() {
 	cleanup
-  networksetup -disconnectpppoeservice "BFC VPN"
+	networksetup -disconnectpppoeservice "BFC VPN"
 	exit
 }
 
@@ -35,20 +35,26 @@ start)
 	fi
 
 	{
+		retry=0
 		while true; do
-	    printf "%s" $! >/tmp/vpnup.pid
+			printf "%s" $! >/tmp/vpnup.pid
 			ping -c 1 -t 1 "${address}" >/dev/null
 			error=$?
 			if [ "${error}" -eq 0 ]; then
 				printf "Successfully connected to %s (PID: %s)\n" "${address}" $! >/dev/null
+				retry=1
 			elif [ "${error}" -eq 2 ]; then
 				printf "Failed to connect to %s (PID: %s)\n" "${address}" $! >/dev/null
+				if [ "${retry}" -eq 1 ]; then
+					networksetup -disconnectpppoeservice "BFC VPN"
+					retry=0
+				fi
 				networksetup -connectpppoeservice "BFC VPN"
 			else
 				printf "ERROR: %s\n" "${error}"
 				rm /tmp/vpnup.pid
 				printf "Exiting (PID: %s)\n" $!
-				exit $error
+				exit "${error}"
 			fi
 			sleep 1
 		done
