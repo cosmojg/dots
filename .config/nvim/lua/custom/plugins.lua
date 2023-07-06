@@ -1,18 +1,14 @@
-local overrides = require "custom.plugins.overrides"
+local overrides = require "custom.overrides"
 
 return {
 
   -- override default plugins
-  ["kyazdani42/nvim-tree.lua"] = {
-    override_options = overrides.nvimtree,
-  },
-
-  ["nvim-treesitter/nvim-treesitter"] = {
-    override_options = overrides.treesitter,
-  },
+  { "nvim-tree/nvim-tree.lua", opts = overrides.nvimtree },
+  { "nvim-treesitter/nvim-treesitter", opts = overrides.treesitter },
 
   -- configure custom plugins
-  ["ricardicus/nvim-magic"] = {
+  {
+    "ricardicus/nvim-magic",
     config = function()
       require("nvim-magic").setup()
     end,
@@ -20,7 +16,25 @@ return {
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim'
     }
-	}
+	},
+
+  {
+    "ojroques/nvim-osc52",
+    config = function()
+      local function copy(lines, _)
+        require("osc52").copy(table.concat(lines, "\n"))
+      end
+      local function paste()
+        return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
+      end
+      vim.g.clipboard = {
+        name = "osc52",
+        copy = { ["+"] = copy, ["*"] = copy },
+        paste = { ["+"] = paste, ["*"] = paste },
+      }
+    end,
+  },
+
   -- ["gpanders/editorconfig.nvim"] = {
   --   after = "indent-o-matic",
   -- },
