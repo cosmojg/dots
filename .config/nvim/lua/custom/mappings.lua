@@ -1,9 +1,12 @@
+---@type MappingsTable
 local M = {}
 
 M.general = {
   n = {
-    [";"] = { ":", "command mode", opts = { nowait = true } },
+    [";"] = { ":", "enter command mode", opts = { nowait = true } },
   },
 }
+
+-- more keybinds!
 
 return M
