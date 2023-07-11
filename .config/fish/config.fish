@@ -6,7 +6,7 @@ if status is-interactive
     sudo pacman -Syu alacritty awesome-terminal-fonts base-devel bat btop duf dust exa fish fisher fd ffmpeg fzf git git-delta man-db man-pages moreutils mosh neovim openssh openssl otf-firamono-nerd otf-fira-sans pandoc pkgfile progress python python-black python-pip python-pre-commit ripgrep rsync ruff shellcheck shfmt syncthing tealdeer ttf-firacode-nerd ttf-ibmplex-mono-nerd ttf-sourcecodepro-nerd vivid xz yamllint zellij zoxide
 
     # Let fisher manage itself
-    fisher install fisher
+    fisher install jorgebucaran/fisher
 
     # Keep pkgfile up-to-date for use with command-not-found
     pkgfile -u
@@ -35,7 +35,7 @@ if status is-interactive
     brew upgrade
     brew install alacritty bash bat black btop coreutils duf dust exa fish fisher fd ffmpeg fzf font-awesome-terminal-fonts font-blex-mono-nerd-font font-charter font-cooper-hewitt font-fira-code-nerd-font font-fira-mono-nerd-font font-fira-sans font-sauce-code-pro-nerd-font git git-delta gnu-sed gnu-tar ipython jq less man-db mdformat micromamba moreutils mosh neovim openssh openssl pandoc progress pre-commit python ripgrep rsync ruff shellcheck shfmt syncthing tealdeer vivid xz yamllint zellij zoxide zsh
 
-    fisher install fisher
+    fisher install jorgebucaran/fisher
 
   # Print an error message
   else
