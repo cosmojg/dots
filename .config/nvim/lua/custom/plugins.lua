@@ -47,19 +47,23 @@ local plugins = {
     end,
   },
 
+  { "MunifTanjim/nui.nvim" },
+
   {
     "ricardicus/nvim-magic",
+    event = "InsertEnter",
     config = function()
       require("nvim-magic").setup()
     end,
     requires = {
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim'
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim"
     }
 	},
 
   {
     "ojroques/nvim-osc52",
+    event = { "VeryLazy", "BufRead" },
     config = function()
       local function copy(lines, _)
         require("osc52").copy(table.concat(lines, "\n"))
@@ -89,7 +93,10 @@ local plugins = {
   -- }
 
   -- To use a extras plugin
-  -- { import = "custom.configs.extras.symbols-outline", },
+  { import = "custom.configs.extras.symbols-outline", },
+  { import = "custom.configs.extras.diffview", },
+  { import = "custom.configs.extras.mason-extras", },
+  { import = "custom.configs.extras.trouble", },
 }
 
 return plugins

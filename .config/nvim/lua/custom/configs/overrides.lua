@@ -11,6 +11,7 @@ M.treesitter = {
     "markdown",
     "markdown_inline",
     "python",
+    "regex",
     "tsx",
     "typescript",
     "vim",
@@ -30,6 +31,9 @@ M.mason = {
     -- lua stuff
     "lua-language-server",
     "stylua",
+
+    -- python stuff
+    "pylsp",
 
     -- web dev stuff
     "css-lsp",
