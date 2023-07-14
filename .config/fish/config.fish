@@ -70,7 +70,7 @@ if status is-interactive
   bat cache --build
 
   # Configure man to use bat
-  set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
+  set -Ux MANPAGER "nvim -c 'Man!' -c 'lua require(\"nvim-treesitter\")'"
 
   # Set default pagers to use less with color passthrough
   set -Ux PAGER "less -RF --mouse"
