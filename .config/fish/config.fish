@@ -69,7 +69,7 @@ if status is-interactive
   set -Ux BAT_THEME "Catppuccin-mocha"
   bat cache --build
 
-  # Configure man to use bat
+  # Configure man to use nvim
   set -Ux MANPAGER "nvim -c 'Man!' -c 'lua require(\"nvim-treesitter\")'"
 
   # Set default pagers to use less with color passthrough
