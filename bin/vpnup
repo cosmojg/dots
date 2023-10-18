@@ -38,7 +38,7 @@ start)
 		retry=0
 		while true; do
 			printf "%s" $! >/tmp/vpnup.pid
-			ping -c 1 -t 1 "${address}" >/dev/null
+			ping -c 1 -t 3 "${address}" >/dev/null
 			error=$?
 			if [ "${error}" -eq 0 ]; then
 				printf "Successfully connected to %s (PID: %s)\n" "${address}" $! >/dev/null
