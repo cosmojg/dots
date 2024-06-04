@@ -60,4 +60,8 @@ M.nvimtree = {
   },
 }
 
+M.nvimmagic = {
+  model = "gpt-4o",
+}
+
 return M
