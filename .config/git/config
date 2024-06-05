@@ -6,7 +6,8 @@
   pager = delta
 
 [delta]
-  light = false
+  dark = true
+  hyperlinks = true
   line-numbers = true
   navigate = true
 
