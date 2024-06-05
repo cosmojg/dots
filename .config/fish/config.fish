@@ -65,8 +65,9 @@ if status is-interactive
   set -Ux MAMBA_ROOT_PREFIX "$HOME/micromamba"
 
   # Configure bat to use Catppuccin
-  git clone "https://github.com/catppuccin/bat.git" "$HOME/.config/bat/themes" --depth 1
-  set -Ux BAT_THEME "Catppuccin-mocha"
+  git clone "https://github.com/catppuccin/bat.git" "$HOME/.config/bat/catppuccin" --depth 1
+  ln -s "$HOME/.config/bat/catppuccin/themes" "$HOME/.config/bat/themes"
+  set -Ux BAT_THEME "Catppuccin Mocha"
   bat cache --build
 
   # Configure man to use nvim
