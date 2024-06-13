@@ -37,6 +37,9 @@ export JULIA_NUM_THREADS=auto
 export JULIA_SHELL=bash
 export MATLAB_SHELL=bash
 
+# bind /storage in JuNest
+export JUNEST_ARGS="-b '--bind /storage /storage'"
+
 # exit script if not running interactively
 [[ $- != *i* ]] && return
 
