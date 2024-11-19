@@ -109,7 +109,7 @@ else if status is-interactive
   set -gx SHELL (type -p fish)
 
   # Initialize micromamba
-  $MAMBA_EXE shell hook --shell fish --prefix $MAMBA_ROOT_PREFIX | source
+  $MAMBA_EXE shell hook --shell fish --root-prefix $MAMBA_ROOT_PREFIX | source
 
   # Initialize zoxide
   zoxide init fish | source
