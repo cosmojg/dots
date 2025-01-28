@@ -1,0 +1,18 @@
+theme = "catppuccin_mocha"
+
+[editor]
+shell = ["bash", "-c"]
+cursorline = true
+completion-replace = true
+true-color = true
+undercurl = true
+bufferline = "multiple"
+color-modes = true
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
