@@ -3,7 +3,7 @@ if status is-interactive
     and not set -q __fish_setup
     # Install dependencies with pacman
     if type -q pacman
-        sudo pacman -Syu aichat alacritty awesome-terminal-fonts base-devel bat btop duf dust eza fish fisher fd ffmpeg fzf git git-delta helix man-db man-pages moreutils mosh neovim openssh openssl otf-firamono-nerd otf-fira-sans pandoc pkgfile progress python ripgrep rsync ruff shellcheck shfmt syncthing tealdeer ttf-firacode-nerd ttf-ibmplex-mono-nerd ttf-sourcecodepro-nerd uv vivid xz yamllint zellij zoxide
+        sudo pacman -Syu aichat alacritty awesome-terminal-fonts base-devel bat bfs btop duf dust eza fish fisher fd ffmpeg fzf git git-delta helix man-db man-pages moreutils mosh neovim openssh openssl otf-firamono-nerd otf-fira-sans pandoc pkgfile progress python ripgrep rsync shellcheck shfmt syncthing tealdeer ttf-firacode-nerd ttf-ibmplex-mono-nerd ttf-sourcecodepro-nerd uv vivid xz yamllint zellij zoxide
 
         # Keep pkgfile up-to-date for use with command-not-found
         pkgfile -u
@@ -30,12 +30,24 @@ if status is-interactive
     else if type -q brew
         brew update
         brew upgrade
-        brew install aichat alacritty bash bat btop coreutils duf dust eza fish fisher fd ffmpeg fzf font-awesome-terminal-fonts font-blex-mono-nerd-font font-charter font-cooper-hewitt font-fira-code-nerd-font font-fira-mono-nerd-font font-fira-sans font-sauce-code-pro-nerd-font git git-delta gnu-sed gnu-tar jq less man-db mdformat micromamba moreutils mosh neovim openssh openssl pandoc progress pre-commit python ripgrep rsync ruff shellcheck shfmt syncthing tealdeer uv vivid xz yamllint zellij zoxide zsh
+        brew install aichat alacritty bash bat bfs btop coreutils duf dust eza fish fisher fd ffmpeg fzf font-awesome-terminal-fonts font-blex-mono-nerd-font font-charter font-cooper-hewitt font-fira-code-nerd-font font-fira-mono-nerd-font font-fira-sans font-sauce-code-pro-nerd-font git git-delta gnu-sed gnu-tar jq less man-db mdformat micromamba moreutils mosh neovim openssh openssl pandoc progress python ripgrep rsync shellcheck shfmt syncthing tealdeer uv vivid xz yamllint zellij zoxide zsh
 
         # Print an error message
     else
         echo "Please install dependencies using your package manager"
     end
+
+    # Install uv-managed tools
+    uv python install 3.13 --default --preview
+    uv python install 3.13t --default --preview
+    set -Ux UV_PYTHON "3.13t"
+    uv venv --python 3.13t ~/.venv
+    uv tool install aider-chat --python 3.12
+    uv tool install ipython
+    uv tool install jupyter-core --with jupyterlab --python 3.13
+    uv tool install pre-commit
+    uv tool install python-lsp-server[all]
+    uv tool install ruff
 
     # Let fisher manage itself
     fisher install jorgebucaran/fisher
@@ -87,7 +99,7 @@ if status is-interactive
     alias -s ls="eza"
     alias -s cat="bat"
     alias -s grep="rg"
-    alias -s find="fd"
+    alias -s find="bfs"
 
     # Configure fish to use Catppuccin
     fisher install catppuccin/fish
@@ -103,9 +115,6 @@ if status is-interactive
     set -Ux __fish_setup true
 
 else if status is-interactive
-    # Commands to run in interactive sessions can go here
-    set -gx SHELL (type -p fish)
-
     # Initialize micromamba
     $MAMBA_EXE shell hook --shell fish --root-prefix $MAMBA_ROOT_PREFIX | source
 
