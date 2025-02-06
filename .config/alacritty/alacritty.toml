@@ -1,0 +1,50 @@
+[general]
+import = ["catppuccin/catppuccin-mocha.toml"]
+
+[window]
+dynamic_padding = true
+option_as_alt = "OnlyLeft"
+
+[window.dimensions]
+columns = 88
+lines = 27
+
+[scrolling]
+history = 100000
+
+[font]
+size = 14.0
+
+[font.normal]
+family = "FiraMono Nerd Font Mono"
+
+[bell]
+duration = 150
+
+[cursor.style]
+blinking = "On"
+
+[terminal]
+osc52 = "CopyPaste"
+
+[terminal.shell]
+program = "/usr/local/bin/fish"
+args = ["--interactive", "--login"]
+
+[[hints.enabled]]
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+command = "firefox"
+hyperlinks = true
+post_processing = true
+mouse = { enabled = true }
+binding = { key = "U", mods = "Control|Shift" }
+
+[[hints.enabled]]
+regex = "[a-f0-9]{40}|[a-f0-9]{7,8}"
+action = "Copy"
+binding = { key = "H", mods = "Control|Shift" }
+
+[[hints.enabled]]
+regex = "(/?[^/ \"']*[a-zA-Z0-9][^/ \"':]*/([^/ \"']+/?)*)|(/[^/ \"']*[a-zA-Z0-9][^/ \"']*)"
+action = "Copy"
+binding = { key = "P", mods = "Control|Shift" }
