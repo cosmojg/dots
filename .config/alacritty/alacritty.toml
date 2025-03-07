@@ -19,7 +19,9 @@ size = 14.0
 family = "FiraMono Nerd Font Mono"
 
 [bell]
+animation = "Ease"
 duration = 150
+color = "#808080"
 
 [cursor.style]
 blinking = "On"
