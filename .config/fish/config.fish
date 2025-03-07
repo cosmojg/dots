@@ -3,7 +3,7 @@ if status is-interactive
     and not set -q __fish_setup
     # Install dependencies with pacman
     if type -q pacman
-        sudo pacman -Syu aichat alacritty awesome-terminal-fonts base-devel bat bfs btop duf dust eza fish fisher fd ffmpeg fzf git git-delta helix man-db man-pages moreutils mosh neovim openssh openssl otf-firamono-nerd otf-fira-sans pandoc pkgfile progress python ripgrep rsync shellcheck shfmt syncthing tealdeer ttf-firacode-nerd ttf-ibmplex-mono-nerd ttf-sourcecodepro-nerd uv vivid xz yamllint zellij zoxide
+        sudo pacman -Syu aichat alacritty awesome-terminal-fonts base-devel bat bfs btop duf dust eza fish fisher fd ffmpeg fzf git git-delta helix man-db man-pages moreutils mosh neovim openssh openssl otf-firamono-nerd otf-fira-sans pandoc pkgfile progress python ripgrep rsync shellcheck shfmt syncthing tealdeer ttf-firacode-nerd ttf-ibmplex-mono-nerd ttf-sourcecodepro-nerd uv vivid yamllint zellij zoxide zstd
 
         # Keep pkgfile up-to-date for use with command-not-found
         pkgfile -u
@@ -30,7 +30,7 @@ if status is-interactive
     else if type -q brew
         brew update
         brew upgrade
-        brew install aichat alacritty bash bat bfs btop coreutils duf dust eza fish fisher fd ffmpeg fzf font-awesome-terminal-fonts font-blex-mono-nerd-font font-charter font-cooper-hewitt font-fira-code-nerd-font font-fira-mono-nerd-font font-fira-sans font-sauce-code-pro-nerd-font git git-delta gnu-sed gnu-tar jq less man-db mdformat micromamba moreutils mosh neovim openssh openssl pandoc progress python ripgrep rsync shellcheck shfmt syncthing tealdeer uv vivid xz yamllint zellij zoxide zsh
+        brew install aichat alacritty bash bat bfs btop coreutils duf dust eza fish fisher fd ffmpeg fzf font-awesome-terminal-fonts font-blex-mono-nerd-font font-charter font-cooper-hewitt font-fira-code-nerd-font font-fira-mono-nerd-font font-fira-sans font-sauce-code-pro-nerd-font git git-delta gnu-sed gnu-tar jq less man-db mdformat micromamba moreutils mosh neovim openssh openssl pandoc progress python ripgrep rsync shellcheck shfmt syncthing tealdeer uv vivid yamllint zellij zoxide zstd
 
         # Print an error message
     else
