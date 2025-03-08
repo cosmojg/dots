@@ -1,24 +1,54 @@
+[apply]
+  whitespace = fix
+
+[branch]
+  sort = -committerdate
+
 [color]
   ui = true
 
+[column]
+  ui = auto
+
+[commit]
+  verbose = true
+
 [core]
-  editor = nvim
+  autocrlf = input
+  editor = hx
   pager = delta
+  untrackedCache = true
 
 [delta]
   dark = true
   hyperlinks = true
   line-numbers = true
   navigate = true
+  true-color = always
 
 [diff]
-  colorMoved = default
+  algorithm = histogram
+  colorMoved = dimmed-zebra
+  colorMovedWS = allow-indentation-change
+  context = 10
+  mnemonicPrefix = true
+  renames = true
+  wsErrorHighlight = all
+
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+
+[help]
+  autocorrect = immediate
 
 [init]
   defaultBranch = main
 
 [interactive]
   diffFilter = delta --color-only
+  singleKey = true
 
 [merge]
   conflictstyle = zdiff3
@@ -27,8 +57,24 @@
   ff = only
 
 [push]
-  default = simple
   autoSetupRemote = true
+  default = simple
+  followTags = true
+
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
 
 [rerere]
+  autoupdate = true
   enabled = true
+
+[status]
+  showStash = true
+
+[stash]
+  showPatch = true
+
+[tag]
+  sort = version:refname
