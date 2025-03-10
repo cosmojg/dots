@@ -1,32 +1,32 @@
 [[language]]
 name = "bash"
 auto-format = true
-formatter = { command = "shfmt" , args = ["--simplify"] }
+formatter = { command = "shfmt", args = ["--simplify"] }
 
 [[language]]
 name = "css"
 auto-format = true
-formatter = { command = "prettier" , args = ["--parser", "css"] }
+formatter = { command = "prettier", args = ["--parser", "css"] }
 
 [[language]]
 name = "html"
 auto-format = true
-formatter = { command = "prettier" , args = ["--parser", "html"] }
+formatter = { command = "prettier", args = ["--parser", "html"] }
 
 [[language]]
 name = "json"
 auto-format = true
-formatter = { command = "prettier" , args = ["--parser", "json"] }
+formatter = { command = "prettier", args = ["--parser", "json"] }
 
 [[language]]
 name = "markdown"
 auto-format = true
-formatter = { command = "prettier" , args = ["--parser", "markdown"] }
+formatter = { command = "prettier", args = ["--parser", "markdown"] }
 
 [[language]]
 name = "python"
 auto-format = true
-formatter = { command = "ruff" , args = ["format", "-"] }
+formatter = { command = "ruff", args = ["format", "-"] }
 
 [[language]]
 name = "rust"
@@ -34,11 +34,17 @@ auto-format = true
 formatter = { command = "rustfmt" }
 
 [[language]]
+name = "toml"
+auto-format = true
+formatter = { command = "taplo", args = ["fmt", "-"] }
+roots = ["."]
+
+[[language]]
 name = "typescript"
 auto-format = true
-formatter = { command = "prettier" , args = ["--parser", "typescript"] }
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
 
 [[language]]
 name = "yaml"
 auto-format = true
-formatter = { command = "prettier" , args = ["--parser", "yaml"] }
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
