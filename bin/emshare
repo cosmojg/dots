@@ -1,14 +1,16 @@
 #!/usr/bin/env rust-script
 //! ```cargo
 //! [dependencies]
-//! clap = { version = "4.0", features = ["derive"] }
-//! globset = "0.4"
+//! clap = { version = "*", features = ["derive"] }
+//! globset = "*"
+//! git2 = "*"
 //! ```
+
 use clap::Parser;
-use std::collections::HashMap;
-use std::path::{Path, PathBuf};
-use std::process::Command;
+use git2::Repository;
 use globset::{Glob, GlobSetBuilder};
+use std::collections::HashMap;
+use std::process;
 
 /// Command-line arguments structure
 #[derive(Parser)]
@@ -28,48 +30,26 @@ enum TreeNode {
     File,
 }
 
+/// Creates a new directory node
 impl TreeNode {
-    /// Creates a new directory node
     fn new_dir() -> Self {
         TreeNode::Directory(HashMap::new())
     }
 }
 
-/// Gets the root directory of the Git repository
-fn get_git_root() -> Result<String, String> {
-    let output = Command::new("git")
-        .args(["rev-parse", "--show-toplevel"])
-        .output()
-        .map_err(|e| format!("Failed to run git: {}", e))?;
-
-    if output.status.success() {
-        let root = String::from_utf8(output.stdout)
-            .map_err(|e| format!("Invalid UTF-8: {}", e))?
-            .trim()
-            .to_string();
-        Ok(root)
-    } else {
-        Err("Not a Git repository".to_string())
-    }
-}
-
 /// Gets the list of tracked files from Git
-fn get_tracked_files() -> Result<Vec<String>, String> {
-    let output = Command::new("git")
-        .arg("ls-files")
-        .output()
-        .map_err(|e| format!("Failed to run git ls-files: {}", e))?;
-
-    if output.status.success() {
-        let files = String::from_utf8(output.stdout)
-            .map_err(|e| format!("Invalid UTF-8: {}", e))?
-            .lines()
-            .map(|s| s.to_string())
-            .collect();
-        Ok(files)
-    } else {
-        Err("Failed to get tracked files".to_string())
+fn get_tracked_files(repo: &Repository) -> Result<Vec<String>, String> {
+    let index = repo
+        .index()
+        .map_err(|e| format!("Failed to get index: {}", e))?;
+    let mut files = Vec::new();
+    for entry in index.iter() {
+        let path = entry.path;
+        let path_str =
+            String::from_utf8(path).map_err(|e| format!("Invalid UTF-8 in path: {}", e))?;
+        files.push(path_str);
     }
+    Ok(files)
 }
 
 /// Builds a directory tree from a list of file paths
@@ -85,7 +65,9 @@ fn build_tree(files: &[String]) -> TreeNode {
                 }
             } else {
                 if let TreeNode::Directory(map) = current {
-                    current = map.entry(part.to_string()).or_insert_with(TreeNode::new_dir);
+                    current = map
+                        .entry(part.to_string())
+                        .or_insert_with(TreeNode::new_dir);
                 }
             }
         }
@@ -113,16 +95,32 @@ fn print_tree(node: &TreeNode, prefix: &str) -> Vec<String> {
 
 fn main() {
     // Parse command-line arguments
+    if let Err(e) = main_impl() {
+        eprintln!("Error: {}", e);
+        process::exit(1);
+    }
+}
+
+fn main_impl() -> Result<(), String> {
     let args = Args::parse();
 
-    // Get repository root and current working directory
-    let root = get_git_root().expect("Failed to get Git root");
-    let cwd = std::env::current_dir().expect("Failed to get current directory");
-    let root_path = PathBuf::from(&root);
+    // Open the Git repository
+    let repo =
+        Repository::discover(".").map_err(|e| format!("Failed to discover repository: {}", e))?;
+    let root_path = repo
+        .workdir()
+        .ok_or("Repository has no workdir".to_string())?
+        .to_path_buf();
+    let cwd =
+        std::env::current_dir().map_err(|e| format!("Failed to get current directory: {}", e))?;
 
     // Compute the relative path from root to cwd
-    let cwd_rel = cwd.strip_prefix(&root_path).unwrap_or(Path::new(""));
-    let cwd_rel_str = cwd_rel.to_str().unwrap();
+    let cwd_rel = cwd
+        .strip_prefix(&root_path)
+        .map_err(|_| "Current directory is not inside the repository".to_string())?;
+    let cwd_rel_str = cwd_rel
+        .to_str()
+        .ok_or("Invalid UTF-8 in path".to_string())?;
     let cwd_prefix = if cwd_rel_str.is_empty() {
         "".to_string()
     } else {
@@ -141,37 +139,37 @@ fn main() {
         .map(|pat| format!("{}{}", cwd_prefix, pat))
         .collect();
 
-    // Get tracked files and convert to paths relative to root
-    let tracked_files = get_tracked_files().expect("Failed to get tracked files");
-    let root_rel_files: Vec<String> = tracked_files
-        .iter()
-        .map(|file| {
-            let abs_path = cwd.join(file);
-            let rel_path = abs_path.strip_prefix(&root_path).unwrap();
-            rel_path.to_str().unwrap().to_string()
-        })
-        .collect();
+    // Get tracked files using git2
+    let tracked_files = get_tracked_files(&repo)?;
 
-    // Build include and exclude GlobSets
+    // Build include GlobSet (optional, defaults to all if empty)
     let include_set = if include_patterns.is_empty() {
         None
     } else {
         let mut builder = GlobSetBuilder::new();
         for pat in &include_patterns {
-            builder.add(Glob::new(pat).unwrap());
+            builder.add(Glob::new(pat).map_err(|e| format!("Invalid glob pattern: {}", e))?);
         }
-        Some(builder.build().unwrap())
-    };
-    let exclude_set = {
-        let mut builder = GlobSetBuilder::new();
-        for pat in &exclude_patterns {
-            builder.add(Glob::new(pat).unwrap());
-        }
-        builder.build().unwrap()
+        Some(
+            builder
+                .build()
+                .map_err(|e| format!("Failed to build include globset: {}", e))?,
+        )
     };
 
+    // Build exclude GlobSet
+    let mut builder = GlobSetBuilder::new();
+    for pat in &exclude_patterns {
+        builder.add(Glob::new(pat).map_err(|e| format!("Invalid glob pattern: {}", e))?);
+    }
+
+    // Build exclude GlobSet
+    let exclude_set = builder
+        .build()
+        .map_err(|e| format!("Failed to build exclude globset: {}", e))?;
+
     // Filter files based on patterns
-    let filtered_files: Vec<String> = root_rel_files
+    let filtered_files: Vec<String> = tracked_files
         .into_iter()
         .filter(|file| {
             let include_match = include_set.as_ref().map_or(true, |set| set.is_match(file));
@@ -180,7 +178,7 @@ fn main() {
         })
         .collect();
 
-    // Build and print the directory structure
+    // Build and print directory tree
     let tree = build_tree(&filtered_files);
     println!("## Directory Structure\n");
     println!("```\n.");
@@ -190,7 +188,7 @@ fn main() {
     }
     println!("```\n");
 
-    // Print each file's content
+    // Print file contents
     for file in &filtered_files {
         println!("## File: {}\n", file);
         println!("```\n");
@@ -206,4 +204,6 @@ fn main() {
         }
         println!("```\n");
     }
+
+    Ok(())
 }
