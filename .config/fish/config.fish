@@ -106,7 +106,8 @@ if status is-interactive
     fish_config theme save "Catppuccin Mocha"
 
     # Configure fish to use tide
-    fisher install IlanCosman/tide
+    fisher install IlanCosman/tide@v6
+    tide configure --auto --style=Lean --prompt_colors='True color' --show_time='24-hour format' --lean_prompt_height='Two lines' --prompt_connection=Dotted --prompt_connection_andor_frame_color=Darkest --prompt_spacing=Compact --icons='Few icons' --transient=No
 
     # Update completions
     fish_update_completions
